@@ -1,0 +1,21 @@
+{
+  "_info": "Surcharge on the free-flow OSRM travel time per hour of the day (Berlin local time, so valid for Germany). typical = single value as shown by a commercial maps service for a departure at that time, cautious = upper end of its range. Calibrated on 2026-10-14 against 23 reference values (9 routes in northern Germany; Tuesday 07:45, Tuesday 17:00, Sunday 06:00); the hours in between are a usual working-day shape, not measured. Mean error on the 23 values: 2.1 minutes. A model, not live traffic.",
+  "calibrated": "2026-10-14",
+  "reference_values": 23,
+  "mean_error_min": 2.1,
+  "valhallaZuOsrm": 1.13,
+  "werktag": {
+    "typisch":    [1.03,1.03,1.03,1.03,1.03,1.04,1.08,1.18,1.21,1.12,1.08,1.08,1.08,1.08,1.09,1.12,1.15,1.15,1.10,1.06,1.04,1.04,1.04,1.03],
+    "vorsichtig": [1.10,1.10,1.10,1.10,1.10,1.11,1.20,1.45,1.50,1.30,1.22,1.22,1.22,1.22,1.25,1.32,1.45,1.47,1.30,1.18,1.12,1.12,1.12,1.10]
+  },
+  "freitagNachmittagPlus": { "abStunde": 13, "bisStunde": 18, "typisch": 0.03, "vorsichtig": 0.05 },
+  "samstag": {
+    "typisch":    [1.03,1.03,1.03,1.03,1.03,1.03,1.03,1.03,1.04,1.06,1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.06,1.05,1.04,1.04,1.03,1.03,1.03],
+    "vorsichtig": [1.10,1.10,1.10,1.10,1.10,1.10,1.10,1.10,1.12,1.18,1.20,1.20,1.20,1.20,1.20,1.20,1.20,1.18,1.15,1.12,1.12,1.10,1.10,1.10]
+  },
+  "sonntagFeiertag": {
+    "typisch":    [1.03,1.03,1.03,1.03,1.03,1.03,1.04,1.04,1.04,1.04,1.05,1.05,1.05,1.05,1.05,1.05,1.06,1.06,1.05,1.04,1.04,1.03,1.03,1.03],
+    "vorsichtig": [1.10,1.10,1.10,1.10,1.10,1.10,1.11,1.11,1.11,1.12,1.14,1.15,1.15,1.15,1.15,1.16,1.18,1.18,1.15,1.12,1.12,1.10,1.10,1.10]
+  },
+  "pufferMin": 10
+}

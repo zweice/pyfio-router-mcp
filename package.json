@@ -1,0 +1,67 @@
+{
+  "name": "@pyfio/router-mcp",
+  "version": "0.2.0",
+  "description": "Pyfio Router: MCP server with measured tools (read a web page, travel time with geocoding, web search with fallback, weather), a build-or-use advisor, and a signed verdict on every answer",
+  "type": "module",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": "Pyfio UG (haftungsbeschraenkt)",
+  "homepage": "https://github.com/zweice/pyfio-router-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zweice/pyfio-router-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "router",
+    "web-reader",
+    "readability",
+    "trafilatura",
+    "weather",
+    "open-meteo",
+    "quality",
+    "agents",
+    "travel-time",
+    "geocoding",
+    "web-search",
+    "signed-verdict",
+    "ed25519",
+    "build-or-buy"
+  ],
+  "mcpName": "com.pyfio/router",
+  "bin": {
+    "pyfio-router": "bin/pyfio-router.mjs"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "data/",
+    "py/lesen.py",
+    "py/requirements.txt",
+    "scripts/verify-standalone.mjs",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node bin/pyfio-router.mjs",
+    "http": "node bin/pyfio-router.mjs --http",
+    "test": "node --test --test-timeout=120000 --test-concurrency=1 \"test/*.test.mjs\"",
+    "pruefe-text": "node scripts/pruefe-text.mjs",
+    "verify": "node scripts/verify-standalone.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@mozilla/readability": "0.6.0",
+    "linkedom": "0.18.13",
+    "zod": "3.25.76"
+  },
+  "optionalDependencies": {
+    "playwright-core": "1.62.1"
+  }
+}

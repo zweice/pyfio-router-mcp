@@ -1,0 +1,10 @@
+node_modules/
+py/venv/
+.state-dev/
+*.tmp
+# measurement raw data and scratch (stay local)
+richter/messung-js/html/
+richter/messung-js/out/
+registries/_tmp/
+docs/_agb-tmp/
+site/_shots/

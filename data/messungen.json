@@ -1,0 +1,104 @@
+{
+  "v": 1,
+  "beschreibung": "Messtabelle fuer bauen_oder_nutzen: je Faehigkeit, was der Selbstbau durch einen Agenten gekostet hat (gemessen) und was die Nutzung des Pyfio-Werkzeugs kostet und leistet (gemessen). Schaetzung aus Messung, nicht aus einem Modell. Ein Eintrag fehlt nie ohne Grund: eine nicht gemessene Zahl steht als null.",
+  "stand": "2026-10-30",
+  "selbstbau_messung": {
+    "modell": "Sonnet 5.5",
+    "datum": "2026-10-30",
+    "methode": "Je Faehigkeit ein Agent baut das Werkzeug aus der Aufgabenstellung selbst (Code, Test, Korrekturrunden); gemessen werden Kosten, Zeit, Korrekturrunden und ob das Ergebnis stimmt.",
+    "quelle": "Pyfio Selbstbau-Messung 30.10.2026 (Berichte selbstbau/lesen, selbstbau/fahrzeit, selbstbau/feiertage; Rohdaten nutzung.json)"
+  },
+  "faehigkeiten": {
+    "seite_lesen": {
+      "werkzeug": "read_page",
+      "selbstbau": {
+        "moeglich": true,
+        "usd": 1.36,
+        "minuten": 25,
+        "werkzeugaufrufe": 96,
+        "korrekturrunden": 12,
+        "sauber": "4 von 6",
+        "fehlerquote": 0.33,
+        "fehlerquote_art": "Anteil der 6 Pruefseiten, auf denen der Haupttext nicht sauber war",
+        "stichprobe": 6,
+        "messdatum": "2026-10-30",
+        "quelle": "selbstbau/lesen/BERICHT.md"
+      },
+      "nutzung": {
+        "kontext_tokens": { "wert": 2010, "beschreibung_zeichen": 1146, "antwort_zeichen": 6894, "vollstaendig": true, "regel": "Zeichen geteilt durch 4, Antwort = Median von 6 Aufrufen" },
+        "qualitaet": { "metrik": "token_f1", "wert": 0.62, "stichprobe": 253, "einheit": "bewertbare Faelle aus 563 URLs", "datum": "2026-10-15", "quelle": "richter/seite-messung.json" },
+        "latenz_ms": 3137,
+        "latenz_art": "Median von 6 Aufrufen (Spanne 812 bis 12943 ms)",
+        "messdatum": "2026-10-30"
+      },
+      "daten": { "lokal": true, "eu": true, "geht_nach": ["die Seite, die gelesen wird (direkt vom Rechner des Betreibers)"], "jina_schluessel_aendert": true }
+    },
+    "fahrzeit": {
+      "werkzeug": "travel_time",
+      "selbstbau": {
+        "moeglich": true,
+        "usd": 0.93,
+        "minuten": 13,
+        "werkzeugaufrufe": null,
+        "korrekturrunden": 4,
+        "sauber": "nein",
+        "fehlerquote": 0.25,
+        "fehlerquote_art": "relative Abweichung des Ergebnisses (81 min) vom Vergleichswert eines kommerziellen Kartendienstes (65 min)",
+        "stichprobe": 1,
+        "messdatum": "2026-10-30",
+        "quelle": "selbstbau/fahrzeit/BERICHT.md"
+      },
+      "nutzung": {
+        "kontext_tokens": { "wert": 620, "beschreibung_zeichen": 1114, "antwort_zeichen": 1364, "vollstaendig": true, "regel": "Zeichen geteilt durch 4, Antwort = Median von 2 Aufrufen" },
+        "qualitaet": { "metrik": "mittlerer_fehler_minuten", "wert": 2.1, "stichprobe": 23, "einheit": "Vergleichswerte eines kommerziellen Kartendienstes", "datum": "2026-10-14", "quelle": "data/verkehr-profil.json" },
+        "latenz_ms": 1130,
+        "latenz_art": "Median von 2 Aufrufen (977 und 1283 ms)",
+        "messdatum": "2026-10-30"
+      },
+      "daten": { "lokal": false, "eu": false, "geht_nach": ["Photon (komoot, Deutschland)", "Nominatim (OpenStreetMap Foundation; Standort der Server nicht zugesichert)", "FOSSGIS OSRM und Valhalla (Deutschland)", "bei Ausfall: Open-Meteo-Geocoder"] }
+    },
+    "websuche": {
+      "werkzeug": "web_search",
+      "selbstbau": {
+        "moeglich": false,
+        "usd": null,
+        "minuten": null,
+        "werkzeugaufrufe": null,
+        "korrekturrunden": null,
+        "sauber": null,
+        "fehlerquote": null,
+        "fehlerquote_art": null,
+        "stichprobe": null,
+        "grund": "ohne Schluessel eines Suchdienstes nicht moeglich",
+        "messdatum": "2026-10-30",
+        "quelle": "Selbstbau-Messung 30.10.2026"
+      },
+      "nutzung": {
+        "kontext_tokens": { "wert": 329, "beschreibung_zeichen": 1317, "antwort_zeichen": null, "vollstaendig": false, "regel": "nur die Beschreibung (Zeichen geteilt durch 4); die Antwortgroesse der Suche wurde nicht gemessen" },
+        "qualitaet": { "metrik": "anteil_richtiger_antworten", "wert": 0.886, "stichprobe": 229, "einheit": "Fragen, Kaskade Serper dann Exa", "datum": "2026-10-16", "quelle": "router-ausbau/schritt3-websuche/ERGEBNIS.md" },
+        "latenz_ms": 1700,
+        "latenz_art": "Median der Kaskade (p90 5100 ms)",
+        "messdatum": "2026-10-16"
+      },
+      "daten": { "lokal": false, "eu": false, "geht_nach": ["Serper (USA), mit Schluessel des Betreibers", "Exa (USA), mit Schluessel des Betreibers", "ohne Schluessel: Wikipedia, Mwmbl, Stack Exchange, MDN, Hacker News"] }
+    },
+    "datum": {
+      "werkzeug": null,
+      "gegenbefund": true,
+      "selbstbau": {
+        "moeglich": true,
+        "usd": 0.5,
+        "minuten": 4,
+        "werkzeugaufrufe": null,
+        "korrekturrunden": 0,
+        "sauber": "ja",
+        "fehlerquote": 0,
+        "fehlerquote_art": "7 von 7 Tests und alle Pruefaufgaben beim ersten Lauf richtig",
+        "stichprobe": 7,
+        "messdatum": "2026-10-30",
+        "quelle": "selbstbau/feiertage/BERICHT.md"
+      },
+      "daten": { "lokal": true, "eu": true, "geht_nach": [] }
+    }
+  }
+}

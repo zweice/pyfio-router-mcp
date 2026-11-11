@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pyfio Router: Einstellungen</title>
+<style>
+  :root { color-scheme: light dark; --bg: #fafaf8; --fg: #1d1d1b; --mut: #6b6b66; --line: #e2e2dc; --acc: #2f6b4f; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #151514; --fg: #ecece6; --mut: #a2a29a; --line: #2e2e2b; --acc: #7fc4a0; } }
+  body { margin: 0; font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--fg); }
+  main { max-width: 760px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 1.3rem; margin: 0 0 4px; }
+  p.mut, .mut { color: var(--mut); font-size: .9rem; }
+  .row { border-top: 1px solid var(--line); padding: 14px 0; display: grid; gap: 6px; }
+  .key { font-family: ui-monospace, Consolas, monospace; font-size: .9rem; }
+  .ctl { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  input[type=number], input[type=password] { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: inherit; width: 9em; }
+  input[type=password] { width: min(100%, 22em); }
+  button { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: inherit; cursor: pointer; }
+  button.pri { background: var(--acc); color: var(--bg); border-color: var(--acc); }
+  .changed { color: var(--acc); font-weight: 600; }
+  #msg { min-height: 1.4em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Pyfio Router: Einstellungen</h1>
+  <p class="mut">Gilt sofort für alle Nutzer dieses Servers und für lokale Aufrufe mit demselben Zustandsordner. Jeder Wert hat Standard, Einheit und Bereich; "Zurücksetzen" stellt den Standard wieder her.</p>
+  <div class="ctl"><input id="tok" type="password" placeholder="Admin-Token" autocomplete="off"><button class="pri" id="load">Laden</button></div>
+  <p id="msg" class="mut"></p>
+  <div id="list"></div>
+</main>
+<script>
+  const $ = (s) => document.querySelector(s);
+  const tok = () => sessionStorage.getItem('pyfio-admin') || '';
+  $('#tok').value = tok();
+  async function api(method, body) {
+    const r = await fetch('/admin/api/einstellungen', { method, headers: { authorization: 'Bearer ' + tok(), 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
+    const j = await r.json().catch(() => ({ ok: false, error: 'keine Antwort' }));
+    if (!j.ok) throw new Error(j.error || ('HTTP ' + r.status));
+    return j.settings;
+  }
+  function render(list) {
+    const box = $('#list');
+    box.textContent = '';
+    for (const s of list) {
+      const row = document.createElement('div'); row.className = 'row';
+      const k = document.createElement('div'); k.className = 'key' + (s.changed ? ' changed' : ''); k.textContent = s.key + (s.changed ? '  (geändert)' : '');
+      const d = document.createElement('div'); d.className = 'mut'; d.textContent = s.desc + '. Standard ' + s.default + ' ' + s.unit + ', Bereich ' + s.min + ' bis ' + s.max + '.';
+      const c = document.createElement('div'); c.className = 'ctl';
+      const inp = document.createElement('input'); inp.type = 'number'; inp.min = s.min; inp.max = s.max; inp.step = 'any'; inp.value = s.value;
+      const u = document.createElement('span'); u.className = 'mut'; u.textContent = s.unit;
+      const save = document.createElement('button'); save.className = 'pri'; save.textContent = 'Speichern';
+      const reset = document.createElement('button'); reset.textContent = 'Zurücksetzen';
+      save.onclick = () => run(() => api('PUT', { key: s.key, value: Number(inp.value) }), s.key + ' gespeichert');
+      reset.onclick = () => run(() => api('PUT', { key: s.key, reset: true }), s.key + ' auf Standard');
+      c.append(inp, u, save, reset);
+      row.append(k, d, c);
+      box.append(row);
+    }
+  }
+  async function run(fn, ok) {
+    try { render(await fn()); $('#msg').textContent = ok; } catch (e) { $('#msg').textContent = 'Fehler: ' + e.message; }
+  }
+  $('#load').onclick = () => { sessionStorage.setItem('pyfio-admin', $('#tok').value.trim()); run(() => api('GET'), 'geladen'); };
+  if (tok()) run(() => api('GET'), 'geladen');
+</script>
+</body>
+</html>

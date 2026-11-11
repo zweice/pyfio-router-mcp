@@ -1,0 +1,19 @@
+Pyfio Router
+Copyright 2026 Pyfio UG (haftungsbeschraenkt)
+
+Licensed under the Apache License, Version 2.0 (LICENSE).
+
+This product uses, without changes, and does not bundle in this repository:
+- @mozilla/readability (Apache License 2.0), Copyright (c) 2010 Arc90 Inc;
+  injected into pages by src/lesen/browser-cli.mjs and run on fetched HTML.
+- playwright-core (Apache License 2.0), Copyright (c) Microsoft Corporation; see its NOTICE.
+  The Chromium browser is downloaded on the user's machine, not distributed with this package.
+- @modelcontextprotocol/sdk (MIT), linkedom (ISC), zod (MIT).
+- trafilatura (Apache License 2.0, since version 1.8.0), optional, installed by the user (py/requirements.txt).
+
+src/lesen/extract-md.mjs, src/lesen/guard.mjs and src/lesen/browser-cli.mjs derive from
+Pyfio's own internal tools.
+
+Weather data: Open-Meteo.com, CC BY 4.0 (attribution line in every weather answer).
+Routing table src/richter/wetter-tabelle.json: Pyfio's own measurement against METAR (Iowa
+Environmental Mesonet) and DWD station observations (Deutscher Wetterdienst, CC BY 4.0).

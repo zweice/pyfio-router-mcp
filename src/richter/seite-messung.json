@@ -1,0 +1,114 @@
+{
+  "judge": "page-judge/1 (2026-10-15)",
+  "source": "Pyfio factory run 'read a page', 14./15.10.2026: 563 URLs (500 Tranco home pages, 63 panel pages), 253 valid cases; reference = own browser rendering, main text without boilerplate; metric = token F1 against the main text; a failure counts as F1 0",
+  "report": "router-ausbau/schritt1-seite-lesen/BERICHT.md",
+  "classes": {
+    "home": "start page (path /): Tranco home pages, 219 cases",
+    "sub": "sub page (articles, docs, Wikipedia, JS-heavy, cookie walls, paywalls): 34 cases"
+  },
+  "providers": {
+    "trafilatura": {
+      "all": {
+        "n": 253,
+        "f1_mean": 0.567,
+        "f1_median": 0.67,
+        "success": 0.862,
+        "ms_p50": 1872
+      },
+      "home": {
+        "n": 219,
+        "f1_mean": 0.548,
+        "f1_median": 0.627,
+        "success": 0.854
+      },
+      "sub": {
+        "n": 34,
+        "f1_mean": 0.691,
+        "f1_median": 0.874,
+        "success": 0.912
+      }
+    },
+    "browser-readability": {
+      "all": {
+        "n": 253,
+        "f1_mean": 0.572,
+        "f1_median": 0.661,
+        "success": 0.897,
+        "ms_p50": 4053
+      },
+      "home": {
+        "n": 219,
+        "f1_mean": 0.557,
+        "f1_median": 0.596,
+        "success": 0.904
+      },
+      "sub": {
+        "n": 34,
+        "f1_mean": 0.665,
+        "f1_median": 0.873,
+        "success": 0.853
+      }
+    },
+    "jina": {
+      "all": {
+        "n": 253,
+        "f1_mean": 0.43,
+        "f1_median": 0.428,
+        "success": 0.945,
+        "ms_p50": 5296
+      },
+      "home": {
+        "n": 219,
+        "f1_mean": 0.407,
+        "f1_median": 0.398,
+        "success": 0.945
+      },
+      "sub": {
+        "n": 34,
+        "f1_mean": 0.575,
+        "f1_median": 0.593,
+        "success": 0.941
+      },
+      "blocked_pages": "where our own browser got HTTP 403 (77 URLs), Jina returned real content in 62 %"
+    },
+    "readability-http": {
+      "all": {
+        "n": 253,
+        "f1_mean": 0.542,
+        "f1_median": 0.581,
+        "success": 0.877,
+        "ms_p50": 540
+      },
+      "home": {
+        "n": 219,
+        "f1_mean": 0.513,
+        "f1_median": null,
+        "success": null
+      },
+      "sub": {
+        "n": 34,
+        "f1_mean": 0.731,
+        "f1_median": null,
+        "success": null
+      },
+      "note": "re-measured 2026-10-20 (richter/messung-js) on fresh HTML of the same 253 cases; Trafilatura on the same HTML: 0.567"
+    }
+  },
+  "cascade": {
+    "trafilatura>browser-readability": {
+      "f1_mean": 0.62,
+      "browser_share": 0.31,
+      "gain_vs_best_single_pct": 9,
+      "cost_vs_best_single_pct": -62
+    },
+    "readability-http>browser-readability": {
+      "f1_mean": 0.586,
+      "browser_share": 0.312,
+      "note": "2026-10-20, browser stage from the stored 14.10 results"
+    },
+    "trafilatura>browser-readability (2026-10-20)": {
+      "f1_mean": 0.606,
+      "browser_share": 0.285
+    }
+  }
+}
